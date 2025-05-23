@@ -7,6 +7,8 @@ const httpServer = require('http').createServer(app);
 const { Server } = require('socket.io');
 const io = new Server(httpServer, {
     cors: {
+        // In production, set this to your frontend domain:
+        // origin: "https://yourfrontenddomain.com",
         origin: "*",
         methods: ["GET", "POST"]
     }
@@ -88,6 +90,8 @@ io.on('connection', socket => {
 // Serve static files from the parent directory (adjust path as needed)
 app.use(express.static(__dirname + '/../'));
 
-httpServer.listen(8000, () => {
-    console.log('Server running on port 8000');
+// Use PORT env variable for Render.com, fallback to 8000 locally
+const PORT = process.env.PORT || 8000;
+httpServer.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
