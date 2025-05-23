@@ -8,21 +8,32 @@
 
 .container{
     max-width: 955px;
-    background-color: gray;
+    background: rgba(255,255,255,0.7);
     margin: auto;
+    min-height: 200px;
     height: 60vh;
     padding: 33px;
     overflow-y: auto;
     margin-bottom: 23px;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+    backdrop-filter: blur(6px);
+    transition: background 0.3s;
 }
-.message
-{
-    background-color: rgb(201, 226, 216) ;
-    width: 24%;
+.message {
+    background-color: rgba(44, 62, 80, 0.85); /* darker for readability */
+    color: #fff;
+    display: inline-block;
+    min-width: 80px;
+    max-width: 49%;
+    width: auto;
     padding: 10px;
     margin: 17px 12px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.13);
+    word-break: break-word;
+    vertical-align: top;
+    transition: background 0.2s, color 0.2s;
 }
 
 .left{
@@ -35,20 +46,25 @@
     clear:both;
 }
 
-#send-container{
-    display: block;
-    margin: auto;
-    text-align: center;
+#send-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     max-width: 985px;
     width: 100%;
+    gap: 8px;
+    margin: auto;
+    text-align: center;
+    flex-direction: row; /* Always row, even on mobile */
 }
 
-#messageInp{
+#messageInp {
     width: 80%;
     border: 2px solid black;
     border-radius: 6px;
     height: 34px;
 }
+
 #create-room-btn {
     padding: 10px 0;
     background-color: rgb(239, 120, 120);
@@ -80,6 +96,7 @@
     border-radius: 6px;
     height: 34px;
     width: 18%;
+    min-width: 70px;
 }
 .btn:hover{
     background-color: #df6d6d;
@@ -91,13 +108,69 @@
     color: white;
 }
 body{
-    background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(230, 98, 105, 0.5)), url('/backgroung.png');
+    background-image:
+        linear-gradient(135deg, rgba(40, 48, 72, 0.85) 0%, rgba(25, 32, 56, 0.95) 100%),
+        url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80');
     background-size: cover;
     background-position: center;
     min-height: 100vh;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #222;
+    margin: 0;
+    padding: 0;
+    transition: background-image 0.4s, background-color 0.3s, color 0.3s;
+    /* fallback for dark backgrounds */
+    background-color: #181a1b;
 }
+
+/* Dropdown styling */
+#bg-select {
+    padding: 7px 14px;
+    border-radius: 8px;
+    border: 1px solid #444;
+    background: #232b3a;
+    color: #fff;
+    font-size: 1em;
+    margin-right: 10px;
+    outline: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: background 0.2s, color 0.2s;
+}
+#bg-select:focus {
+    border-color: #6dcadf;
+    background: #1a2233;
+    color: #fff;
+}
+
+body.dark-mode {
+    background-image: none !important;
+    background-color: #181a1b !important;
+    color: #e0e0e0;
+}
+
+body.dark-mode .container {
+    background: rgba(30, 30, 30, 0.85);
+    color: #e0e0e0;
+}
+
+body.dark-mode #room-section {
+    background: rgba(40,40,40,0.95);
+    color: #e0e0e0;
+}
+
+body.dark-mode .btn,
+body.dark-mode #create-room-btn {
+    background-color: #333 !important;
+    color: #fff !important;
+    border-color: #555 !important;
+}
+
+body.dark-mode #user-list li {
+    background: #232323;
+    color: #e0e0e0;
+    border-color: #444;
+}
+
 #room-section {
     background: rgba(255,255,255,0.9);
     padding: 30px;
@@ -114,6 +187,10 @@ body{
     font-size: 1.1em;
     color: #333;
     margin-bottom: 10px;
+    transition: color 0.2s;
+}
+body.dark-mode #room-code-display {
+    color: #fff;
 }
 
 #room-code-inp {
