@@ -9,7 +9,7 @@ const createBtn = document.getElementById('create-room-btn');
 const joinBtn = document.getElementById('join-room-btn');
 const roomCodeInput = document.getElementById('room-code-inp');
 const roomCodeDisplay = document.getElementById('room-code-display');
-var audit = new Audio('ting.mp3');
+var audit = new Audio('/ting.mp3');
 
 let username = '';
 let currentRoom = '';

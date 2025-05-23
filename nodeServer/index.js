@@ -87,8 +87,9 @@ io.on('connection', socket => {
     });
 });
 
-// Serve static files from the parent directory (adjust path as needed)
-app.use(express.static(__dirname + '/../'));
+// Serve static files from the public directory inside nodeServer
+app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/../')); // Serve root files like /chat.png, /backgroung.png, /ting.mp3
 
 // Use PORT env variable for Render.com, fallback to 8000 locally
 const PORT = process.env.PORT || 8000;
