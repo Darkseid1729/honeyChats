@@ -12,7 +12,7 @@
     margin: auto;
     min-height: 200px;
     height: 60vh;
-    padding: 33px;
+    padding: 3px;
     overflow-y: auto;
     margin-bottom: 23px;
     border-radius: 18px;
@@ -34,6 +34,20 @@
     word-break: break-word;
     vertical-align: top;
     transition: background 0.2s, color 0.2s;
+    position: relative;
+}
+
+/* Pointy tail for left messages */
+.left.message::before {
+    content: "";
+    position: absolute;
+    left: -10px;
+    bottom: 10px;
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-right: 12px solid rgba(44, 62, 80, 0.85);
+    border-bottom: 10px solid transparent;
 }
 
 .left{
@@ -44,6 +58,19 @@
 .right{
     float: right;
     clear:both;
+}
+
+/* Pointy tail for right messages */
+.right.message::before {
+    content: "";
+    position: absolute;
+    right: -10px;
+    bottom: 10px;
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-left: 12px solid rgba(44, 62, 80, 0.85);
+    border-bottom: 10px solid transparent;
 }
 
 #send-container {
@@ -224,4 +251,14 @@ body.dark-mode #room-code-display {
     box-shadow: 0 1px 4px rgba(0,0,0,0.07);
     border: 1px solid #e0e0e0;
     margin: 0;
+}
+
+/* Reduce message padding and margin on small screens */
+@media (max-width: 600px) {
+    .message {
+        padding-left: 4px;
+        padding-right: 4px;
+        margin-left: 3px;
+        margin-right: 3px;
+    }
 }

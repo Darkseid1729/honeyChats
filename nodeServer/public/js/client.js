@@ -114,6 +114,7 @@ socket.on('update-user-list', (userList) => {
 // Background and mode switching
 const bgSelect = document.getElementById('bg-select');
 const toggleModeBtn = document.getElementById('toggle-mode');
+const logoutBtn = document.getElementById('logout-btn');
 const body = document.body;
 
 const backgrounds = {
@@ -166,6 +167,11 @@ toggleModeBtn.addEventListener('click', function() {
         body.classList.remove('dark-mode');
         toggleModeBtn.innerText = "🌙 Dark Mode";
     }
+});
+
+logoutBtn.addEventListener('click', function() {
+    // Optionally, you can also emit a custom logout event to the server here
+    location.reload();
 });
 
 // NOTE: If you see a CORS error, make sure your server at localhost:8000 allows CORS requests from http://127.0.0.1:5500
