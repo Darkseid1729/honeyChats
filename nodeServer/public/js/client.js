@@ -174,5 +174,32 @@ logoutBtn.addEventListener('click', function() {
     location.reload();
 });
 
+const typingIndicator = document.createElement('div');
+typingIndicator.id = 'typing-indicator';
+typingIndicator.style.textAlign = 'left';
+typingIndicator.style.fontSize = '0.95em';
+typingIndicator.style.color = '#888';
+messagesContainer.parentNode.appendChild(typingIndicator);
+
+let typingTimeout;
+messageInput.addEventListener('input', () => {
+    socket.emit('typing', { room: currentRoom, name: username });
+    clearTimeout(typingTimeout);
+    typingTimeout = setTimeout(() => {
+        socket.emit('stop-typing', { room: currentRoom, name: username });
+    }, 1200);
+});
+
+socket.on('show-typing', (name) => {
+    if (name !== username) {
+        typingIndicator.innerText = `${name} is typing...`;
+    }
+});
+socket.on('hide-typing', (name) => {
+    if (name !== username) {
+        typingIndicator.innerText = '';
+    }
+});
+
 // NOTE: If you see a CORS error, make sure your server at localhost:8000 allows CORS requests from http://127.0.0.1:5500
 // This is a server-side configuration. In your Node.js server, use the 'cors' package or set headers manually.

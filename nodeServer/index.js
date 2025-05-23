@@ -73,6 +73,18 @@ io.on('connection', socket => {
         }
     });
 
+    socket.on('typing', ({ room, name }) => {
+        if (room) {
+            socket.to(room).emit('show-typing', name);
+        }
+    });
+
+    socket.on('stop-typing', ({ room, name }) => {
+        if (room) {
+            socket.to(room).emit('hide-typing', name);
+        }
+    });
+
     socket.on('disconnect', () => {
         const user = users[socket.id];
         if (user && user.room && rooms[user.room]) {

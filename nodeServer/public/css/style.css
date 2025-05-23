@@ -253,6 +253,14 @@ body.dark-mode #room-code-display {
     margin: 0;
 }
 
+/* Typing indicator style */
+#typing-indicator {
+    margin: 0 0 0 10px;
+    min-height: 18px;
+    font-style: italic;
+    color: #888;
+}
+
 /* Reduce message padding and margin on small screens */
 @media (max-width: 600px) {
     .message {
