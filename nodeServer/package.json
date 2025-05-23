@@ -10,6 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "multer": "^2.0.0",
     "socket.io": "^4.8.1"
   }
 }

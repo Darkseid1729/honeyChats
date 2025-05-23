@@ -65,7 +65,13 @@
         </div>
 
         <div class="send">
-            <form action="#" id="send-container">
+            <!-- Upload image controls outside the send form -->
+            <label for="imageFileInp" id="upload-label" title="Upload Image">
+                <img src="/upload-icon.png" alt="Upload" style="width:28px;height:28px;vertical-align:middle;cursor:pointer;">
+            </label>
+            <input type="file" id="imageFileInp" accept="image/*" style="display:none;">
+            <button type="button" id="uploadImageBtn" class="btn" style="margin-left:4px;">Upload Image</button>
+            <form action="#" id="send-container" style="display:inline;">
                 <input type="text" name="messageInp" id="messageInp" autocomplete="off">
                 <button class="btn" type="submit">Send</button>
             </form>

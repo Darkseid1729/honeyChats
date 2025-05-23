@@ -76,17 +76,44 @@
 #send-container {
     display: flex;
     align-items: center;
+    flex: 1 1 auto;
+    gap: 8px;
+    margin: 0;
     justify-content: center;
     max-width: 985px;
     width: 100%;
-    gap: 8px;
-    margin: auto;
-    text-align: center;
     flex-direction: row; /* Always row, even on mobile */
 }
 
+.send {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    justify-content: flex-start;
+}
+
+#upload-label img {
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    opacity: 0.85;
+    transition: opacity 0.2s;
+}
+#upload-label img:hover {
+    opacity: 1;
+}
+
+#uploadImageBtn {
+    padding: 4px 12px;
+    font-size: 0.95em;
+    margin-left: 2px;
+}
+
 #messageInp {
+    flex: 1 1 auto;
     width: 80%;
+    min-width: 0;
     border: 2px solid black;
     border-radius: 6px;
     height: 34px;

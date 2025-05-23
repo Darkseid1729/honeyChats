@@ -13,9 +13,40 @@ const io = new Server(httpServer, {
         methods: ["GET", "POST"]
     }
 });
+const cors = require('cors');
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
 
 const users = {}; // socket.id -> { name, room }
 const rooms = {}; // roomCode -> [socket.id]
+
+// Enable CORS for all routes (restrict origins if needed)
+app.use(cors({
+    origin: [
+        'https://darkseid1729.github.io',
+        'https://rooms-and-chatting.onrender.com',
+        'https://cuddly-space-engine-jxp77gjjr7vcp647-5500.app.github.dev'
+    ]
+}));
+
+// Ensure uploads directory exists before any upload or static middleware
+const uploadDir = path.join(__dirname, 'public', 'uploads');
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+}
+
+// Set up multer for uploads
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, uploadDir);
+    },
+    filename: function (req, file, cb) {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, uniqueSuffix + '-' + file.originalname);
+    }
+});
+const upload = multer({ storage: storage });
 
 function generateUniqueRoomCode() {
     let code;
@@ -64,12 +95,23 @@ io.on('connection', socket => {
         const user = users[socket.id];
         if (user && user.room) {
             const timestamp = new Date().toLocaleTimeString();
-            socket.to(user.room).emit('receive', {
-                message: message,
-                name: user.name,
-                timestamp: timestamp
-            });
-            callback && callback(timestamp);
+            // If message is an image object, send it as top-level object
+            if (typeof message === 'object' && message.type === 'image') {
+                socket.to(user.room).emit('receive', {
+                    type: 'image',
+                    url: message.url,
+                    name: user.name,
+                    timestamp: timestamp
+                });
+                callback && callback(timestamp);
+            } else {
+                socket.to(user.room).emit('receive', {
+                    message: message,
+                    name: user.name,
+                    timestamp: timestamp
+                });
+                callback && callback(timestamp);
+            }
         }
     });
 
@@ -102,6 +144,16 @@ io.on('connection', socket => {
 // Serve static files from the public directory inside nodeServer
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/../')); // Serve root files like /chat.png, /backgroung.png, /ting.mp3
+app.use('/uploads', express.static(uploadDir));
+
+// Upload endpoint (field name can be 'image' or 'myFile' as needed)
+app.post('/upload', upload.single('image'), (req, res) => {
+    if (!req.file) {
+        return res.status(400).json({ error: 'No file uploaded' });
+    }
+    const imageUrl = `/uploads/${req.file.filename}`;
+    res.json({ url: imageUrl });
+});
 
 // Use PORT env variable for Render.com, fallback to 8000 locally
 const PORT = process.env.PORT || 8000;

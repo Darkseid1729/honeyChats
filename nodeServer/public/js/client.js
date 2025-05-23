@@ -9,6 +9,11 @@ const createBtn = document.getElementById('create-room-btn');
 const joinBtn = document.getElementById('join-room-btn');
 const roomCodeInput = document.getElementById('room-code-inp');
 const roomCodeDisplay = document.getElementById('room-code-display');
+const imageUrlInp = document.getElementById('imageUrlInp');
+const sendImageBtn = document.getElementById('sendImageBtn');
+const imageFileInp = document.getElementById('imageFileInp');
+const uploadImageBtn = document.getElementById('uploadImageBtn');
+const uploadLabel = document.getElementById('upload-label');
 var audit = new Audio('/ting.mp3');
 
 let username = '';
@@ -16,7 +21,11 @@ let currentRoom = '';
 
 const append = (message, position) => {
     const messageElement = document.createElement('div');
-    messageElement.innerHTML = message;
+    if (typeof message === 'object' && message.type === 'image') {
+        messageElement.innerHTML = `<img src="${message.url}" style="max-width:180px;max-height:180px;border-radius:8px;">`;
+    } else {
+        messageElement.innerHTML = message;
+    }
     messageElement.classList.add('message');
     messageElement.classList.add(position);
     messagesContainer.append(messageElement);
@@ -89,11 +98,56 @@ form.addEventListener('submit', (e) => {
     messageInput.value = '';
 });
 
+if (sendImageBtn && imageUrlInp) {
+    sendImageBtn.addEventListener('click', () => {
+        const url = imageUrlInp.value.trim();
+        if (!url) return;
+        socket.emit('send', { type: 'image', url }, (timestamp) => {
+            append(`<b>You</b> <span style="font-size:0.8em;color:#888;">${timestamp}</span>:<br><img src="${url}" style="max-width:180px;max-height:180px;border-radius:8px;">`, 'right');
+        });
+        imageUrlInp.value = '';
+    });
+}
+
+if (uploadImageBtn && imageFileInp) {
+    uploadImageBtn.addEventListener('click', () => {
+        const file = imageFileInp.files[0];
+        if (!file) return;
+        const formData = new FormData();
+        formData.append('image', file);
+
+        fetch('https://rooms-and-chatting.onrender.com/upload', {
+            method: 'POST',
+            body: formData
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.url) {
+                socket.emit('send', { type: 'image', url: data.url }, (timestamp) => {
+                    append(`<b>You</b> <span style="font-size:0.8em;color:#888;">${timestamp}</span>:<br><img src="${data.url}" style="max-width:180px;max-height:180px;border-radius:8px;">`, 'right');
+                });
+            }
+        })
+        .catch(() => alert('Image upload failed!'));
+        imageFileInp.value = '';
+    });
+}
+
+if (uploadLabel && imageFileInp) {
+    uploadLabel.addEventListener('click', () => {
+        imageFileInp.click();
+    });
+}
+
 socket.on('user-joined', name => {
     append(`<b>${name}</b> joined the chat`, 'right');
 });
 socket.on('receive', data => {
-    append(`<b>${data.name}</b> <span style="font-size:0.8em;color:#888;">${data.timestamp}</span>: ${data.message}`, 'left');
+    if (data.type === 'image') {
+        append({ type: 'image', url: data.url }, 'left');
+    } else {
+        append(`<b>${data.name}</b> <span style="font-size:0.8em;color:#888;">${data.timestamp}</span>: ${data.message}`, 'left');
+    }
 });
 socket.on('left', name => {
     append(`<b>${name}</b> left the chat`, 'left');
