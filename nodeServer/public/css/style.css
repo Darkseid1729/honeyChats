@@ -12,7 +12,7 @@
     margin: auto;
     min-height: 200px;
     height: 60vh;
-    padding: 3px;
+    padding: 2px;
     overflow-y: auto;
     margin-bottom: 23px;
     border-radius: 18px;
@@ -83,13 +83,15 @@
     margin: auto;
     text-align: center;
     flex-direction: row; /* Always row, even on mobile */
+    padding-bottom: 20px; /* added padding to bottom */
 }
 
 #messageInp {
     width: 80%;
     border: 2px solid black;
-    border-radius: 6px;
-    height: 34px;
+    border-radius: 16px; /* increased border radius */
+    height: 44px;        /* increased height */
+    font-size: 1.15em;   /* increased font size */
 }
 
 #create-room-btn {
@@ -120,10 +122,11 @@
     color: white;
     cursor: pointer;
     border: 1px solid #df6d6d;
-    border-radius: 6px;
-    height: 34px;
-    width: 18%;
-    min-width: 70px;
+    border-radius: 12px; /* increased border radius */
+    height: 44px;        /* increased height */
+    width: 22%;          /* slightly wider */
+    min-width: 90px;     /* increased min width */
+    font-size: 1.1em;    /* increased font size */
 }
 .btn:hover{
     background-color: #df6d6d;
