@@ -1,4 +1,4 @@
-const socket = io();
+const socket = io("https://rooms-and-chatting.onrender.com");
 
 const form = document.getElementById('send-container');
 const messageInput = document.getElementById('messageInp');
