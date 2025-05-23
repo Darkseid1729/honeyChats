@@ -1,12 +1,16 @@
 // node server to handle socket connections
 
 const crypto = require('crypto');
-const io = require('socket.io')(8000, {
+const express = require('express');
+const app = express();
+const httpServer = require('http').createServer(app);
+const { Server } = require('socket.io');
+const io = new Server(httpServer, {
     cors: {
-        origin: "http://127.0.0.1:5500",
+        origin: "*",
         methods: ["GET", "POST"]
     }
-})
+});
 
 const users = {}; // socket.id -> { name, room }
 const rooms = {}; // roomCode -> [socket.id]
@@ -79,4 +83,11 @@ io.on('connection', socket => {
         }
         delete users[socket.id];
     });
+});
+
+// Serve static files from the parent directory (adjust path as needed)
+app.use(express.static(__dirname + '/../'));
+
+httpServer.listen(8000, () => {
+    console.log('Server running on port 8000');
 });
