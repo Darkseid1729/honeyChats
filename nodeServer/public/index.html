@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>iChat - realtime Node Socket.io Chat app</title>
-    <script defer src="https://rooms-and-chatting.onrender.com/socket.io/socket.io.js"></script>
+    <!-- Use CDN as fallback for Socket.IO client -->
+    <script defer src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
     <script defer src="js/client.js"></script>
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -54,6 +55,9 @@
     <div id="room-section" style="text-align:center; margin-top:30px;">
         <h2>Welcome to iChat</h2>
         <button id="create-room-btn" class="btn">Create Room</button>
+        <input type="checkbox" id="custom-room-checkbox" style="margin-left:15px;">
+        <label for="custom-room-checkbox" style="font-size:0.95em;">Custom code</label>
+        <input type="text" id="custom-room-code-inp" placeholder="Custom Room Code" style="width:150px; display:none; margin-left:10px;"/>
         <br><br>
         <input type="text" id="room-code-inp" placeholder="Enter Room Code" style="width:150px;"/>
         <button id="join-room-btn" class="btn">Join Room</button>

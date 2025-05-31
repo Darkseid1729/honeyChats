@@ -7,10 +7,13 @@ const httpServer = require('http').createServer(app);
 const { Server } = require('socket.io');
 const io = new Server(httpServer, {
     cors: {
-        // In production, set this to your frontend domain:
-        // origin: "https://yourfrontenddomain.com",
-        origin: "*",
-        methods: ["GET", "POST"]
+        origin: [
+            "http://localhost:5500",
+            "http://127.0.0.1:5500",
+            "https://refactored-pancake-g45pqpxvxvw2vpq-5500.app.github.dev"
+        ],
+        methods: ["GET", "POST"],
+        credentials: true
     }
 });
 
@@ -37,13 +40,33 @@ io.on('connection', socket => {
         callback && callback();
     });
 
-    socket.on('create-room', (callback) => {
-        const roomCode = generateUniqueRoomCode();
+    // Support custom or random room code creation
+    socket.on('create-room', (customCodeOrCallback, callbackMaybe) => {
+        let roomCode, callback;
+        if (typeof customCodeOrCallback === 'string') {
+            // Custom code requested
+            roomCode = customCodeOrCallback.toUpperCase();
+            callback = callbackMaybe;
+            if (rooms[roomCode]) {
+                callback && callback({ success: false, message: 'Room code already exists.' });
+                return;
+            }
+        } else {
+            // Random code requested
+            callback = customCodeOrCallback;
+            roomCode = generateUniqueRoomCode();
+        }
         rooms[roomCode] = [];
         users[socket.id].room = roomCode;
         socket.join(roomCode);
         rooms[roomCode].push(socket.id);
-        callback && callback(roomCode);
+        if (typeof callback === 'function') {
+            if (typeof customCodeOrCallback === 'string') {
+                callback({ success: true });
+            } else {
+                callback(roomCode);
+            }
+        }
         emitUserList(roomCode);
     });
 

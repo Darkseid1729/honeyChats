@@ -9,6 +9,8 @@ const createBtn = document.getElementById('create-room-btn');
 const joinBtn = document.getElementById('join-room-btn');
 const roomCodeInput = document.getElementById('room-code-inp');
 const roomCodeDisplay = document.getElementById('room-code-display');
+const customRoomCheckbox = document.getElementById('custom-room-checkbox');
+const customRoomCodeInput = document.getElementById('custom-room-code-inp');
 var audit = new Audio('/ting.mp3');
 
 let username = '';
@@ -52,14 +54,37 @@ function login() {
 }
 login();
 
+// Show/hide custom room code input based on checkbox
+customRoomCheckbox.addEventListener('change', () => {
+    customRoomCodeInput.style.display = customRoomCheckbox.checked ? '' : 'none';
+});
+
 // Room creation
 createBtn.addEventListener('click', () => {
-    socket.emit('create-room', (roomCode) => {
-        currentRoom = roomCode;
-        roomCodeDisplay.innerText = `Room Code: ${roomCode}`;
-        showChatSection();
-        append(`<b>Room created. Share this code: ${roomCode}</b>`, 'right');
-    });
+    if (customRoomCheckbox.checked) {
+        const customCode = customRoomCodeInput.value.trim().toUpperCase();
+        if (!customCode) {
+            alert('Please enter a custom room code.');
+            return;
+        }
+        socket.emit('create-room', customCode, (result) => {
+            if (result.success) {
+                currentRoom = customCode;
+                roomCodeDisplay.innerText = `Room Code: ${customCode}`;
+                showChatSection();
+                append(`<b>Room created. Share this code: ${customCode}</b>`, 'right');
+            } else {
+                alert(result.message || 'Room code already exists. Try another.');
+            }
+        });
+    } else {
+        socket.emit('create-room', (roomCode) => {
+            currentRoom = roomCode;
+            roomCodeDisplay.innerText = `Room Code: ${roomCode}`;
+            showChatSection();
+            append(`<b>Room created. Share this code: ${roomCode}</b>`, 'right');
+        });
+    }
 });
 
 // Room joining
