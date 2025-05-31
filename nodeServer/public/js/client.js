@@ -174,12 +174,14 @@ logoutBtn.addEventListener('click', function() {
     location.reload();
 });
 
-const typingIndicator = document.createElement('div');
+// Remove the static typing-indicator div usage and instead create and append it dynamically as before:
+let typingIndicator = document.createElement('div');
 typingIndicator.id = 'typing-indicator';
 typingIndicator.style.textAlign = 'left';
 typingIndicator.style.fontSize = '0.95em';
 typingIndicator.style.color = '#888';
-messagesContainer.parentNode.appendChild(typingIndicator);
+// Insert the typing indicator above messagesContainer
+messagesContainer.parentNode.insertBefore(typingIndicator, messagesContainer);
 
 let typingTimeout;
 messageInput.addEventListener('input', () => {
