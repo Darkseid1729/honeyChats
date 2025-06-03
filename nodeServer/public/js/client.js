@@ -169,12 +169,7 @@ const backgrounds = {
     bg24: "url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbTc3Zm1lM2N4MnV0M2t2eXdzNnJpd2MyYWhxM3gyeWV2bGpoMjRtcSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/PxDshFWiGe91SBHXQW/giphy.gif')", // Ai dance
     bg25: "url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbTc3Zm1lM2N4MnV0M2t2eXdzNnJpd2MyYWhxM3gyeWV2bGpoMjRtcSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/W6dHvprT7oks6BpX5R/giphy.gif')", // fuziwara dance
     bg26: "url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMzV6MzI1YXVyZ215Z3FpYzVsNzB5dmR6N2lyZDNmYms1djYxMHRzMiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/90cAvw5mBQHa1QNFG9/giphy.gif')", // beat ass
-    bg27: "url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMzV6MzI1YXVyZ215Z3FpYzVsNzB5dmR6N2lyZDNmYms1djYxMHRzMiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/mjQB1napOu1axSR2ig/giphy.gif')", // shy girl
-    bg28: "url('https://media.giphy.com/media/CpHcxFwDgENibkrIqq/giphy.gif')", // making you uncomfortable1
-    bg29: "url('https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExcWl3dGlscHV3eDMxeWtwa3pnNm42cDFvYWZuYWRuYzVmYzNhOWExMiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/LSz8tqMYbChGKqg7FT/giphy.gif')", // making you uncomfortable2
-    bg30: "url('https://media.giphy.com/media/jyHinkqf9Z1OOguQFi/giphy.gif')", // making you uncomfortable3
-    bg31: "url('https://media.giphy.com/media/vQ6vju3LpqhOhGukN8/giphy.gif')", // making you uncomfortable4
-    bg32: "url('https://media.giphy.com/media/w9Yt5sDfXmnY1MBFsw/giphy.gif')" // making you uncomfortable5
+    // Removed: bg27, bg28, bg29, bg30, bg31, bg32
 };
 
 bgSelect.addEventListener('change', function() {
