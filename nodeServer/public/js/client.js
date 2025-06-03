@@ -22,7 +22,7 @@ const append = (message, position) => {
     messageElement.classList.add('message');
     messageElement.classList.add(position);
     messagesContainer.append(messageElement);
-    if (position == 'left') {
+    if (position == 'left' && !isMuted) {
         audit.play();
     }
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
@@ -141,6 +141,15 @@ const bgSelect = document.getElementById('bg-select');
 const toggleModeBtn = document.getElementById('toggle-mode');
 const logoutBtn = document.getElementById('logout-btn');
 const body = document.body;
+// Add mute button
+const muteBtn = document.getElementById('mute-btn');
+let isMuted = false;
+
+muteBtn.addEventListener('click', function() {
+    isMuted = !isMuted;
+    muteBtn.innerText = isMuted ? "🔇" : "🔊";
+    muteBtn.classList.toggle('muted', isMuted);
+});
 
 const backgrounds = {
     bg1: "url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZm5sMHhiNmgwOTJ5OXFsc2R1cmpoM2xucjgxZjFpNm9hNjNzZjdqayZlcD12MV9naWZzX3NlYXJjaCZjdD1n/RlwF2vFb4y7bDnWvcO/giphy.gif')", // Aurora
