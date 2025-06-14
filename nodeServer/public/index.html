@@ -4,16 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>iChat - realtime Node Socket.io Chat app</title>
-    <!-- Use CDN as fallback for Socket.IO client -->
     <script defer src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
     <script defer src="js/client.js"></script>
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <nav>
-        <img class="logo" src="/chat.png" alt="">
+    <!-- Login Page -->
+    <div id="login-page" class="login-page">
+        <div class="login-box animate-pop">
+            <img class="logo" src="/chat.png" alt="">
+            <h2>Welcome to <span style="color:#e57373;">iChat</span></h2>
+            <p class="subtitle">Enter your name to join the chat</p>
+            <input type="text" id="login-username" placeholder="Your name" autocomplete="off">
+            <button id="login-btn" class="btn primary-btn">Join</button>
+        </div>
+    </div>
+    <nav class="navbar">
+        <a href="#" class="logo-link"><img class="logo" src="/chat.png" alt="iChat"></a>
+        <span class="brand">iChat</span>
     </nav>
-    <div style="text-align:center; margin: 20px 0;">
+    <div class="top-controls">
         <label for="bg-select">Background:</label>
         <select id="bg-select">
             <option value="bg1">Aurora</option>
@@ -43,31 +54,37 @@
             <option value="bg25">fuziwara dance</option>
             <option value="bg26">beat ass</option>
         </select>
-        <button id="toggle-mode" class="btn" style="width:auto; padding: 0 16px; margin-left: 10px;">🌙 Dark Mode</button>
-        <button id="logout-btn" class="btn" style="width:auto; padding: 0 16px; margin-left: 10px;">Logout</button>
-        <button id="mute-btn" class="btn" style="width:40px; height:40px; padding:0; margin-left:10px; font-size:1.3em;">🔊</button>
+        <button id="toggle-mode" class="btn" title="Toggle dark mode">🌙</button>
+        <button id="logout-btn" class="btn" title="Logout">⎋</button>
+        <button id="mute-btn" class="btn" title="Mute/Unmute">🔊</button>
     </div>
-    <div id="room-section" style="text-align:center; margin-top:30px;">
-        <h2>Welcome to iChat</h2>
-        <button id="create-room-btn" class="btn">Create Room</button>
-        <input type="checkbox" id="custom-room-checkbox" style="margin-left:15px;">
-        <label for="custom-room-checkbox" style="font-size:0.95em;">Custom code</label>
-        <input type="text" id="custom-room-code-inp" placeholder="Custom Room Code" style="width:150px; display:none; margin-left:10px;"/>
-        <br><br>
-        <input type="text" id="room-code-inp" placeholder="Enter Room Code" style="width:150px;"/>
-        <button id="join-room-btn" class="btn">Join Room</button>
-    </div>
-    <div id="chat-section">
-        <div id="room-code-display" style="text-align:center; margin-bottom:10px; font-weight:bold;"></div>
-        <ul id="user-list"></ul>
-        <div class="container">
-        </div>
-        <div class="send">
-            <form action="#" id="send-container">
-                <input type="text" name="messageInp" id="messageInp" autocomplete="off">
-                <button class="btn" type="submit">Send</button>
-            </form>
-        </div>
-    </div>
+    <main>
+        <section id="room-section" class="card room-section">
+            <h2>Welcome to <span style="color:#e57373;">iChat</span></h2>
+            <div class="room-actions">
+                <button id="create-room-btn" class="btn primary-btn">Create Room</button>
+                <div style="display:flex; align-items:center; gap:8px; margin-top:10px;">
+                    <input type="checkbox" id="custom-room-checkbox">
+                    <label for="custom-room-checkbox" class="custom-room-label">Custom code</label>
+                    <input type="text" id="custom-room-code-inp" placeholder="Custom Room Code" style="display:none"/>
+                </div>
+            </div>
+            <div class="join-actions">
+                <input type="text" id="room-code-inp" placeholder="Enter Room Code" style="width:150px;"/>
+                <button id="join-room-btn" class="btn">Join Room</button>
+            </div>
+        </section>
+        <section id="chat-section" class="card chat-section">
+            <div id="room-code-display"></div>
+            <ul id="user-list"></ul>
+            <div class="container"></div>
+            <div class="send">
+                <form action="#" id="send-container">
+                    <input type="text" name="messageInp" id="messageInp" autocomplete="off" placeholder="Type a message...">
+                    <button class="btn primary-btn" type="submit">Send</button>
+                </form>
+            </div>
+        </section>
+    </main>
 </body>
 </html>

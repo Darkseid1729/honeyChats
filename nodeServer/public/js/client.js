@@ -11,6 +11,11 @@ const roomCodeInput = document.getElementById('room-code-inp');
 const roomCodeDisplay = document.getElementById('room-code-display');
 const customRoomCheckbox = document.getElementById('custom-room-checkbox');
 const customRoomCodeInput = document.getElementById('custom-room-code-inp');
+// Always hide by default (in case of browser cache or reload)
+customRoomCodeInput.style.display = 'none';
+const loginPage = document.getElementById('login-page');
+const loginInput = document.getElementById('login-username');
+const loginBtn = document.getElementById('login-btn');
 var audit = new Audio('/ting.mp3');
 
 let username = '';
@@ -31,32 +36,55 @@ const append = (message, position) => {
 // Hide chat section initially
 chatSection.style.display = 'none';
 
+function showLoginPage() {
+    loginPage.style.display = '';
+    roomSection.style.display = 'none';
+    chatSection.style.display = 'none';
+}
+function showRoomSection() {
+    loginPage.style.display = 'none';
+    roomSection.style.display = '';
+    chatSection.style.display = 'none';
+}
 function showChatSection() {
+    loginPage.style.display = 'none';
     roomSection.style.display = 'none';
     chatSection.style.display = '';
 }
 
-function showRoomSection() {
-    roomSection.style.display = '';
-    chatSection.style.display = 'none';
-}
+// Hide room and chat sections initially, show login
+showLoginPage();
 
-// Login prompt
-function login() {
-    username = prompt("Enter your name to join");
-    if (!username) {
-        login();
+// Login page logic
+loginBtn.addEventListener('click', () => {
+    const name = loginInput.value.trim();
+    if (!name) {
+        loginInput.focus();
+        loginInput.style.borderColor = 'red';
+        setTimeout(() => loginInput.style.borderColor = '', 600);
         return;
     }
+    username = name;
     socket.emit('login', username, () => {
         showRoomSection();
     });
-}
-login();
+});
+loginInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') loginBtn.click();
+});
+
+// Ensure custom room code input is hidden by default
+customRoomCodeInput.style.display = 'none';
 
 // Show/hide custom room code input based on checkbox
 customRoomCheckbox.addEventListener('change', () => {
-    customRoomCodeInput.style.display = customRoomCheckbox.checked ? '' : 'none';
+    if (customRoomCheckbox.checked) {
+        customRoomCodeInput.style.display = '';
+        customRoomCodeInput.focus();
+    } else {
+        customRoomCodeInput.style.display = 'none';
+        customRoomCodeInput.value = '';
+    }
 });
 
 // Room creation
@@ -132,6 +160,7 @@ socket.on('update-user-list', (userList) => {
     userList.forEach(name => {
         const li = document.createElement('li');
         li.textContent = name;
+        li.setAttribute('data-initial', name ? name[0].toUpperCase() : '?');
         userListElement.appendChild(li);
     });
 });
