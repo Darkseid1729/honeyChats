@@ -261,5 +261,18 @@ socket.on('hide-typing', (name) => {
     }
 });
 
+// Copy room code button logic
+const copyRoomCodeBtn = document.getElementById('copy-room-code-btn');
+
+copyRoomCodeBtn.addEventListener('click', () => {
+    const codeText = roomCodeDisplay.innerText.replace(/^Room Code:\s*/, '').trim();
+    if (codeText) {
+        navigator.clipboard.writeText(codeText).then(() => {
+            copyRoomCodeBtn.innerText = "✅";
+            setTimeout(() => copyRoomCodeBtn.innerText = "📋", 1000);
+        });
+    }
+});
+
 // NOTE: If you see a CORS error, make sure your server at localhost:8000 allows CORS requests from http://127.0.0.1:5500
 // This is a server-side configuration. In your Node.js server, use the 'cors' package or set headers manually.

@@ -8,6 +8,20 @@
     <script defer src="js/client.js"></script>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Cute pink background for login page */
+        .login-page {
+            background: url('/detailed_hand_painted_pink_watercolour_background_0509.jpg') center center/cover no-repeat;
+            min-height: 100vh;
+        }
+        /* Make login box a little pink and slightly transparent */
+        .login-box {
+            background: rgba(255, 192, 192, 0.8); /* light pink with some transparency */
+            border-radius: 18px;
+            box-shadow: 1px 1px 1px 0 rgba(0, 0, 0, 0.732);
+            padding: 32px 28px;
+        }
+    </style>
 </head>
 <body>
     <!-- Login Page -->
@@ -75,7 +89,10 @@
             </div>
         </section>
         <section id="chat-section" class="card chat-section">
-            <div id="room-code-display"></div>
+            <div style="display:flex; align-items:center; gap:4px;">
+                <div id="room-code-display"></div>
+                <button id="copy-room-code-btn" class="btn" style="font-size:0.8em; padding:0 6px; height:22px; min-width:22px; line-height:1;" title="Copy Room Code">📋</button>
+            </div>
             <ul id="user-list"></ul>
             <div class="container"></div>
             <div class="send">
