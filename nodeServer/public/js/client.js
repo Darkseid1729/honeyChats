@@ -274,5 +274,23 @@ copyRoomCodeBtn.addEventListener('click', () => {
     }
 });
 
+// Fullscreen button logic
+const fullscreenBtn = document.getElementById('fullscreen-btn');
+fullscreenBtn.addEventListener('click', () => {
+    if (!document.fullscreenElement) {
+        chatSection.requestFullscreen();
+        fullscreenBtn.innerText = "🡼";
+        fullscreenBtn.title = "Exit Fullscreen";
+    } else {
+        document.exitFullscreen();
+    }
+});
+document.addEventListener('fullscreenchange', () => {
+    if (!document.fullscreenElement) {
+        fullscreenBtn.innerText = "⛶";
+        fullscreenBtn.title = "Fullscreen";
+    }
+});
+
 // NOTE: If you see a CORS error, make sure your server at localhost:8000 allows CORS requests from http://127.0.0.1:5500
 // This is a server-side configuration. In your Node.js server, use the 'cors' package or set headers manually.
