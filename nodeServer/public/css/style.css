@@ -24,6 +24,8 @@ body {
     /* position: sticky; */
     top: 0;
     z-index: 10;
+    max-height: 4vh;
+
 }
 .logo-link {
     display: flex;
