@@ -10,7 +10,8 @@ const io = new Server(httpServer, {
         origin: [
             "http://localhost:5500",
             "http://127.0.0.1:5500",
-            "https://refactored-pancake-g45pqpxvxvw2vpq-5500.app.github.dev"
+            "https://refactored-pancake-g45pqpxvxvw2vpq-5501.app.github.dev",
+            "https://refactored-pancake-g45pqpxvxvw2vpq-8000.app.github.dev/"
         ],
         methods: ["GET", "POST"],
         credentials: true
