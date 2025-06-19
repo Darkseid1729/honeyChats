@@ -227,8 +227,14 @@ main {
 }
 
 .chat-section {
+    min-height: 100%;
     max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
     width: 100%;
+    box-sizing: border-box;
+    padding-left: 8px;
+    padding-right: 8px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -237,6 +243,7 @@ main {
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.12);
     border-radius: 18px;
 }
+
 #room-code-display {
     font-size: 1.1em;
     color: #11ffdbbf;
@@ -295,12 +302,12 @@ main {
 .container {
     max-width: 100%;
     background: rgba(255,255,255,0.7);
-    min-height: 200px;
-    height: 54vh;
+    /* min-height: 100px; */
+    height: 50vh;
     padding: 2px 8px;
     overflow-y: auto;
     margin-bottom: 18px;
-    border-radius: 18px;
+    border-radius: 26px;
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.10);
     backdrop-filter: blur(6px);
     transition: background 0.3s;
@@ -406,7 +413,7 @@ main {
 }
 #messageInp:active {
     border-color: #0d47a1;
-    background: #e3f2fd;
+    background: #c9e8fe;
     box-shadow: 0 0 0 2px #0d47a1cc, 0 2px 12px rgba(13,71,161,0.18);
 }
 
@@ -433,11 +440,10 @@ main {
     transition: background 0.4s;
 }
 .login-box {
-    background: #fff;
-    padding: 40px 30px 30px 30px;
+    background: rgba(255, 192, 192, 0.8); /* light pink with some transparency */
     border-radius: 18px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.13);
-    min-width: 260px;
+    box-shadow: 0px 0px 9px 1px rgba(0, 0, 0, 0.732);
+    padding: 32px 28px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -466,8 +472,10 @@ main {
     margin-bottom: 8px;
 }
 #login-username {
-    width: 100%;
-    padding: 10px;
+    width: 90%;
+    padding: 15px;
+
+    margin: 8px;
     border-radius: 8px;
     border: 1.5px solid #bbb;
     font-size: 1.1em;
@@ -488,7 +496,7 @@ main {
     background: #fff;
 }
 #login-btn {
-    width: 100%;
+    width: 90%;
     margin-top: 8px;
 }
 #logout-btn {
@@ -554,14 +562,17 @@ body.dark-mode #mute-btn:active {
 
 @media (max-width: 900px) {
     .chat-section, .room-section, .card {
-        max-width: 98vw;
-        padding: 18px 4vw 18px 4vw;
+        max-width: 90vw;
+        padding: 15px 4vw 15px 4vw;
+        height: 150vw;
     }
     .container {
-        height: 38vh;
+        height: 8vw;
+        width: 90vh;
     }
 }
 @media (max-width: 600px) {
+    
     .navbar {
         padding: 0.5em 0.7em;
     }
@@ -573,18 +584,25 @@ body.dark-mode #mute-btn:active {
         padding-right: 2px;
         margin-left: 0;
         margin-right: 0;
-        height: 32vh;
+        height: 77vh;
     }
     .message {
         padding-left: 6px;
         padding-right: 6px;
         margin-left: 2px;
         margin-right: 2px;
-        font-size: 0.98em;
+        font-size: 0.97em;
     }
     .login-box {
-        min-width: 90vw;
-        padding: 18px 4vw 18px 4vw;
+        width: 92vw;
+        max-width: 340px;
+        min-width: unset;
+        padding: 28px 6px;
+    }
+    .chat-section {
+        max-width: 100vw;
+        padding-left: 2vw;
+        padding-right: 2vw;
     }
 }
 
@@ -596,7 +614,7 @@ body.dark-mode {
 body.dark-mode .navbar,
 body.dark-mode .card,
 body.dark-mode .container {
-    background: rgba(30, 30, 30, 0.93) !important;
+    background: rgba(0, 0, 0, 0.93) !important;
     color: #e0e0e0;
 }
 body.dark-mode .btn,
