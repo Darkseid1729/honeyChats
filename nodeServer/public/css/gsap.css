@@ -1,0 +1,42 @@
+/* GSAP-powered pop-in animation for chat messages */
+.gsap-pop-in {
+    /* This class is used as a GSAP animation trigger, not for CSS animation */
+    /* Optionally, you can set initial state for GSAP here if needed */
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+    will-change: opacity, transform;
+}
+
+/* Message wrapper styles for proper layout and spacing */
+.message-wrapper {
+    width: 100%;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    background: transparent !important;
+    box-shadow: none !important;
+    overflow-x: visible !important;
+    border-radius: 10px !important;
+    /* Let the message itself handle margin/padding and background */
+}
+.message-wrapper.left {
+    justify-content: flex-start;
+}
+.message-wrapper.right {
+    justify-content: flex-end;
+}
+.message-wrapper.gsap-pop-in {
+    background: rgba(76, 175, 80, 0.13) !important; /* Light green background */
+    animation: msg-bg-fade 2s forwards;
+}
+@keyframes msg-bg-fade {
+    0% {
+        background: rgba(76, 175, 80, 0.13);
+    }
+    80% {
+        background: rgba(76, 175, 80, 0.13);
+    }
+    100% {
+        background: transparent;
+    }
+}

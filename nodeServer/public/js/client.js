@@ -22,11 +22,18 @@ let username = '';
 let currentRoom = '';
 
 const append = (message, position) => {
+    // Create wrapper for sliding animation
+    const wrapper = document.createElement('div');
+    wrapper.classList.add('message-wrapper', position);
+
     const messageElement = document.createElement('div');
     messageElement.innerHTML = message;
     messageElement.classList.add('message');
     messageElement.classList.add(position);
-    messagesContainer.append(messageElement);
+
+    wrapper.appendChild(messageElement);
+    messagesContainer.append(wrapper);
+
     if (position == 'left' && !isMuted) {
         audit.play();
     }
