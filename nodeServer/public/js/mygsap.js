@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         {
                             opacity: 0,
                             x: node.classList.contains('right') ? 90 : -90,
-                            transformOrigin: node.classList.contains('right') ? '100% 50%' : '0% 50%',
+                            transformOrigin: node.classList.contains('right') ? '100% 80%' : '0% 50%',
                         },
                         {
                             opacity: 1,
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
             ticking = true;
         }
     });
-
+});
     // Animate messages when they enter viewport using ScrollTrigger and stagger
     if (window.ScrollTrigger && gsap) {
         gsap.registerPlugin(ScrollTrigger);
@@ -163,4 +163,4 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
-});
+
